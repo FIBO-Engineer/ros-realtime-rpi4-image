@@ -1,0 +1,18 @@
+name: Test pwd
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-focal-ros:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Print current directory
+        run: pwd
+
+      - name: List root directory contents
+        run: ls -la
