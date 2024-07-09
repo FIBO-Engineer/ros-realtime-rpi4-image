@@ -3,7 +3,7 @@ name: Test pwd
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build-focal-ros:
