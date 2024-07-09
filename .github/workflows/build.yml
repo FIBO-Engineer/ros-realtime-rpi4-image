@@ -37,16 +37,16 @@ jobs:
       - name: Build image
         run: .github/workflows/build.sh focal-rt-ros
 
-      - name: List files in current directory
-        run: ls -la .
+      # - name: List files in current directory
+      #   run: ls -la .
 
-      - name: List files in out directory
-        run: ls -la ./out
+      # - name: List files in out directory
+      #   run: ls -la ./out
 
       - name: Save built image
         run: |
           mkdir -p release
-          mv ./out/ubuntu-20.04.5-rt-ros-arm64+raspi.img release/ubuntu-20.04.5-rt-ros-arm64+raspi.img
+          mv ./out/ubuntu-20.04.5-rt-ros-arm64+raspi.img release/ubuntu-20.04.5-rt-ros-arm64+raspi.img.gz
 
       - name: Get commit hash and date
         id: vars
@@ -78,6 +78,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: release/ubuntu-20.04.5-rt-ros-arm64+raspi.img
-          asset_name: ubuntu-20.04.5-rt-ros-arm64+raspi.img
+          asset_path: release/ubuntu-20.04.5-rt-ros-arm64+raspi.img.gz
+          asset_name: ubuntu-20.04.5-rt-ros-arm64+raspi.img.gz
           asset_content_type: application/octet-stream
