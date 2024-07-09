@@ -24,7 +24,7 @@ jobs:
             - '.github/workflows/setup-dependencies.sh'
             - '.github/workflows/build.yml'
 
-  build-focal:
+  build-focal-ros:
     needs: changes
     runs-on: ubuntu-latest
     if: ${{ needs.changes.outputs.check-changes == 'true' }}
@@ -35,19 +35,43 @@ jobs:
         run: .github/workflows/setup-dependencies.sh
 
       - name: Build image
-        run: .github/workflows/build.sh focal-rt-ros2
+        run: .github/workflows/build.sh focal-rt-ros
 
-  build-jammy:
-    needs: changes
+      - name: Save built image
+        run: |
+          mkdir -p release
+          mv ./out/ubuntu-20.04.5-rt-ros-arm64+raspi.img release/ubuntu-20.04.5-rt-ros-arm64+raspi.img
+
+      - name: Get commit hash and date
+        id: vars
+        run: |
+          echo "COMMIT_HASH=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+          echo "COMMIT_DATE=$(date -u +%Y%m%d)" >> $GITHUB_ENV
+
+  release-image:
+    needs: build-focal-ros
     runs-on: ubuntu-latest
     if: ${{ needs.changes.outputs.check-changes == 'true' }}
     steps:
       - uses: actions/checkout@v2
 
-      - name: Setup build dependencies
-        run: .github/workflows/setup-dependencies.sh
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ env.COMMIT_DATE }}-${{ env.COMMIT_HASH }}
+          release_name: Release v${{ env.COMMIT_DATE }}-${{ env.COMMIT_HASH }}
+          draft: false
+          prerelease: false
 
-      - name: Build image
-        run: .github/workflows/build.sh jammy-rt-ros2
-
-  # TODO: release image
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: release/ubuntu-20.04.5-rt-ros-arm64+raspi.img
+          asset_name: ubuntu-20.04.5-rt-ros-arm64+raspi.img
+          asset_content_type: application/octet-stream
