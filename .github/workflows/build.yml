@@ -27,7 +27,7 @@ jobs:
   build-focal-ros:
     # needs: changes
     runs-on: ubuntu-latest
-    if: ${{ needs.changes.outputs.check-changes == 'true' }}
+    # if: ${{ needs.changes.outputs.check-changes == 'true' }}
     steps:
       - uses: actions/checkout@v2
 
@@ -51,7 +51,7 @@ jobs:
   release-image:
     needs: build-focal-ros
     runs-on: ubuntu-latest
-    if: ${{ needs.changes.outputs.check-changes == 'true' }}
+    # if: ${{ needs.changes.outputs.check-changes == 'true' }}
     steps:
       - uses: actions/checkout@v2
 
