@@ -1,4 +1,4 @@
-Raspberry Pi image with ROS 2 and the real-time kernel
+Raspberry Pi image with ROS 1 Noetic and the real-time kernel
 =====================================================
 
 [![Build image](https://github.com/ros-realtime/ros-realtime-rpi4-image/actions/workflows/build.yml/badge.svg)](https://github.com/ros-realtime/ros-realtime-rpi4-image/actions/workflows/build.yml)
