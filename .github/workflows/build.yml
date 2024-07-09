@@ -37,6 +37,12 @@ jobs:
       - name: Build image
         run: .github/workflows/build.sh focal-rt-ros
 
+      - name: List files in current directory
+        run: ls -la .
+
+      - name: List files in out directory
+        run: ls -la ./out
+
       - name: Save built image
         run: |
           mkdir -p release
