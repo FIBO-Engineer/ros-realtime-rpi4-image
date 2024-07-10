@@ -46,7 +46,7 @@ jobs:
       - name: Save built image
         run: |
           mkdir -p release
-          mv ./out/ubuntu-20.04.5-rt-ros-arm64+raspi.img release/ubuntu-20.04.5-rt-ros-arm64+raspi.img.gz
+          mv ./out/ubuntu-20.04.5-rt-ros-arm64+raspi.img.gz release/ubuntu-20.04.5-rt-ros-arm64+raspi.img.gz
 
       - name: Get commit hash and date
         id: vars
