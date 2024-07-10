@@ -37,12 +37,6 @@ jobs:
       - name: Build image
         run: .github/workflows/build.sh focal-rt-ros
 
-      # - name: List files in current directory
-      #   run: ls -la .
-
-      # - name: List files in out directory
-      #   run: ls -la ./out
-
       - name: Save built image
         run: |
           mkdir -p release
@@ -53,13 +47,6 @@ jobs:
         run: |
           echo "COMMIT_HASH=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
           echo "COMMIT_DATE=$(date -u +%Y%m%d)" >> $GITHUB_ENV
-
-  release-image:
-    needs: build-focal-ros
-    runs-on: ubuntu-latest
-    # if: ${{ needs.changes.outputs.check-changes == 'true' }}
-    steps:
-      - uses: actions/checkout@v2
 
       - name: Create Release
         id: create_release
