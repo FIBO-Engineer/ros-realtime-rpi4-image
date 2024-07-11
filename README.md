@@ -1,9 +1,11 @@
-Raspberry Pi image with ROS 2 and the real-time kernel
+Raspberry Pi image with ROS 1 Noetic and the real-time kernel
 =====================================================
+
+#### This repo focus on ROS1 Noetic
 
 [![Build image](https://github.com/ros-realtime/ros-realtime-rpi4-image/actions/workflows/build.yml/badge.svg)](https://github.com/ros-realtime/ros-realtime-rpi4-image/actions/workflows/build.yml)
 
-This repo builds a Raspberry Pi 4 image with ROS 2 and the real-time kernel
+This repo builds a Raspberry Pi 4 image with ROS1 & ROS 2 and the real-time kernel
 pre-installed. This image can be downloaded directly from [the releases
 page](https://github.com/ros-realtime/ros-realtime-rpi4-image/releases),
 flashed to a SD card, and booted on a Raspberry Pi 4.
